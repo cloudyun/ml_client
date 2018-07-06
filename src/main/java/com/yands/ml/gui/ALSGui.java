@@ -29,6 +29,7 @@ import javax.swing.border.TitledBorder;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.yands.ml.common.Constant;
 import com.yands.ml.common.GuiUtil;
 import com.yands.ml.common.Log;
 import com.yands.ml.entity.ResponseData;
@@ -37,8 +38,6 @@ import com.yands.ml.util.Spider;
 public class ALSGui extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	
-	private static String base_url = "http://192.168.14.33:8899/";
 	
 	private JPanel als_panel;
 	private JTextField appTextField;
@@ -180,7 +179,7 @@ public class ALSGui extends JFrame {
 				json.put("rank", rankTextField.getText());
 				json.put("itera", iteraTextField.getText());
 				json.put("path", trainDataTextField.getText());
-				ResponseData post = Spider.post(base_url + "als/train", json.toJSONString());
+				ResponseData post = Spider.post(Constant.BASE_URL + "als/train", json.toJSONString());
 				log.log(post.getMessage());
 			}
 		});
@@ -230,7 +229,7 @@ public class ALSGui extends JFrame {
 				json.put("name", appTextField.getText());
 				json.put("userId", userId);
 				json.put("productId", productId);
-				ResponseData post = Spider.post(base_url + "als/forecast", json.toJSONString());
+				ResponseData post = Spider.post(Constant.BASE_URL + "als/forecast", json.toJSONString());
 				if (post.getCode() == 200) {
 					log.log("用户" + userId + "对商品" + productId + "的预测评分为:" + post.getResult());
 				} else {
@@ -279,7 +278,7 @@ public class ALSGui extends JFrame {
 				json.put("userId", userId);
 				String topn = topnUserTextField.getText();
 				json.put("topn", topn);
-				ResponseData post = Spider.post(base_url + "als/getTopnByUser", json.toJSONString());
+				ResponseData post = Spider.post(Constant.BASE_URL + "als/getTopnByUser", json.toJSONString());
 				if (post.getCode() == 200) {
 					log.log("用户" + userId + "最喜欢的" + topn + "个商品为:");
 					JSONObject data = JSON.parseObject(post.getResult().toString());
@@ -344,7 +343,7 @@ public class ALSGui extends JFrame {
 				json.put("name", appTextField.getText());
 				json.put("productId", productId);
 				json.put("topn", topn);
-				ResponseData post = Spider.post(base_url + "als/getTopnByProduct", json.toJSONString());
+				ResponseData post = Spider.post(Constant.BASE_URL + "als/getTopnByProduct", json.toJSONString());
 				if (post.getCode() == 200) {
 					log.log("最喜欢商品" + productId + "的前" + topn + "个用户为:");
 					JSONObject data = JSON.parseObject(post.getResult().toString());
@@ -387,7 +386,7 @@ public class ALSGui extends JFrame {
 				JSONObject json = new JSONObject();
 				json.put("name", appTextField.getText());
 				json.put("path", veriTextField.getText());
-				ResponseData post = Spider.post(base_url + "als/verification", json.toJSONString());
+				ResponseData post = Spider.post(Constant.BASE_URL + "als/verification", json.toJSONString());
 				if (post.getCode() == 200) {
 					JSONArray arr = JSON.parseArray(post.getResult().toString());
 					for (int x = 0; x < arr.size(); x++) {
