@@ -85,8 +85,9 @@ public class ALSGui extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				int x = JOptionPane.showConfirmDialog(als_panel, "你确定要关闭程序吗？", "提示", JOptionPane.WARNING_MESSAGE);
 				if (x == JOptionPane.OK_OPTION) {
-					dispose();
-					System.exit(3);
+//					dispose();
+//					System.exit(3);
+					als_panel.setVisible(false);
 				}
 			}
 		});
