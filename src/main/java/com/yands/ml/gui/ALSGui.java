@@ -87,7 +87,7 @@ public class ALSGui extends JFrame {
 				if (x == JOptionPane.OK_OPTION) {
 //					dispose();
 //					System.exit(3);
-//					als_panel.setVisible(false);
+					als_panel.setVisible(false);
 				}
 			}
 		});
